@@ -53,7 +53,7 @@ class MainWindow(QMainWindow):
     def navigateTo(self):
         url = self.urlBar.text()
         self.browser.setUrl(QUrl(url))
-        web.page().profile().setHttpUserAgent(userAgent)
+        self.browser.page().profile().setHttpUserAgent = userAgent
 
     def updateUrl(self, q):
         self.urlBar.setText(q.toString())
