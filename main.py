@@ -23,11 +23,36 @@ class MainWindow(QMainWindow):
         self.addToolBar(self.toolbar)
         self.toolbar.addAction(self.printAction)
 
+        # set navigation
+        backButton = QAction('Back', self)
+        backButton.setShortcut('Alt+A')
+        backButton.triggered.connect(self.browser.back)
+
+        forwardButton = QAction('Forward', self)
+        forwardButton.setShortcut('Alt+S')
+        forwardButton.triggered.connect(self.browser.forward)
+
+        # set search bar
+
+        self.toolbar.addAction(backButton)
+        self.toolbar.addAction(forwardButton)
+
+        self.urlBar = QLineEdit()
+        self.urlBar.returnPressed.connect(self.navigateTo)
+        self.toolbar.addWidget(self.urlBar)
+        self.browser.urlChanged.connect(self.updateUrl)
+
     def printPage(self):
         printer = QPrinter()
         printDialog = QPrintDialog(printer, self)
         if printDialog.exec_() == QPrintDialog.Accepted:
             self.browser.print_(printer)
+
+    def navigateTo(self):
+        url = self.urlBar.text()
+        self.browser.setUrl(QUrl(url))
+    def updateUrl(self, q):
+        self.urlBar.setText(q.toString())
 
 Application = QApplication(sys.argv)
 window = MainWindow()
