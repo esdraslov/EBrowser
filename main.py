@@ -28,3 +28,8 @@ class MainWindow(QMainWindow):
         printDialog = QPrintDialog(printer, self)
         if printDialog.exec_() == QPrintDialog.Accepted:
             self.browser.print_(printer)
+
+Application = QApplication(sys.argv)
+window = MainWindow()
+window.show()
+sys.exit(Application.exec_())
