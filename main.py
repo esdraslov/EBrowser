@@ -6,6 +6,8 @@ from PyQt5.QtWebEngineWidgets import *
 from PyQt5.QtPrintSupport import *
 import sys, os
 
+userAgent = "E-Browser/1.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3 (KHTML, like Gecko) QtWebEngine/5.15.2 Chrome/87.0.4280.88 Safari/537.3"
+
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -51,6 +53,8 @@ class MainWindow(QMainWindow):
     def navigateTo(self):
         url = self.urlBar.text()
         self.browser.setUrl(QUrl(url))
+        web.page().profile().setHttpUserAgent(userAgent)
+
     def updateUrl(self, q):
         self.urlBar.setText(q.toString())
 
